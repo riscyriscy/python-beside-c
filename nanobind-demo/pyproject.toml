@@ -1,0 +1,27 @@
+[build-system]
+requires = ["scikit-build-core==1.1.1", "nanobind==3.1.0"]   # exact: uv.lock does not pin build tools
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "telemetry-log"
+version = "1.0.0"
+description = "A C++ record log, wrapped with nanobind"
+requires-python = ">=3.12"
+
+[dependency-groups]
+dev = ["pytest>=8", "mypy>=1.11", "ruff>=0.6", "typing-extensions>=4.12", "numpy>=2"]
+
+[tool.scikit-build]
+cmake.version = ">=3.21"
+build-dir = "build/{wheel_tag}"
+wheel.packages = ["src/telemetry_log"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+extend-exclude = ["build"]     # nanobind writes a generated stub there
+
+[tool.mypy]
+strict = true

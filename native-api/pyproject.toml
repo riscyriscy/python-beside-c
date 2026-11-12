@@ -1,0 +1,25 @@
+# Environment for the native-api examples (Phase 5): ctypes and cffi on the same C API.
+[project]
+name = "native-api-examples"
+version = "1.0.0"
+requires-python = ">=3.12"
+dependencies = [
+    "cffi>=2.0",
+    "setuptools>=70",    # cffi's compile step needs it on Python 3.12 and later
+]
+
+[dependency-groups]
+dev = ["ruff>=0.6", "mypy>=1.11", "types-cffi"]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 100
+extend-exclude = [".venv*", "build", "_adc_cffi.c"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+strict = true

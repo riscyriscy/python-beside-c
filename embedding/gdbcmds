@@ -1,0 +1,8 @@
+set pagination off
+set debuginfod enabled off
+set filename-display basename
+set print frame-info short-location
+break crc16_ccitt
+run . > /dev/null
+bt -frame-arguments none
+finish

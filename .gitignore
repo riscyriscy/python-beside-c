@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+dist/
+*.egg-info/
+
+# Native build outputs
+build/
+*.so
+*.pyd
+*.dylib
+*.dll
+
+# Files the examples generate
+out/
+snippets/gui/shot_*.png
+.hypothesis/
+
+# Per-interpreter build directories and environments of the C and C++ examples
+.venv*/
+freethreading/build*/
+embedding/build*/
+
+# cffi build products
+native-api/_adc_cffi*
+native-api/tmp/
+*.o
+firmware-tree/build-*/
+firmware-tree/dist/
+native-api/build/

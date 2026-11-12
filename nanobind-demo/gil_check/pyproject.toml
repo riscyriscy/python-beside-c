@@ -1,0 +1,9 @@
+[build-system]
+requires = ["scikit-build-core==1.1.1", "nanobind==3.1.0"]
+build-backend = "scikit_build_core.build"
+[project]
+name = "gilmod"
+version = "0.0.1"
+requires-python = ">=3.12"
+[tool.scikit-build]
+wheel.packages = []

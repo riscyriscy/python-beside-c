@@ -1,0 +1,33 @@
+[build-system]
+requires = ["scikit-build-core>=0.11"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "fwcore"
+version = "1.0.0"
+description = "The firmware's fw_core library as a Python module"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.11"]
+
+[tool.scikit-build]
+cmake.source-dir = "python"             # the CMakeLists.txt that builds the extension
+wheel.packages = ["python/src/fwcore"]  # the Python files to ship beside it
+# The whole directory goes into an sdist, so ../lib is there when the sdist is built
+sdist.exclude = ["build-*", ".venv*", "*.egg-info"]   # a git checkout would skip these through .gitignore
+
+[tool.pytest.ini_options]
+testpaths = ["python/tests"]
+
+[tool.ruff]
+line-length = 100
+extend-exclude = ["build", ".venv*"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+strict = true
+mypy_path = "python/src"

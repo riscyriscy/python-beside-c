@@ -1,0 +1,46 @@
+# Environment for the examples outside the frametool package (Book 2).
+# Not a distributable package: `uv sync` just installs what the scripts need.
+[project]
+name = "python-beside-c-snippets"
+version = "1.0.0"
+requires-python = ">=3.12"
+dependencies = [
+    "frametool",                 # the package in ../frametool-py, with its C extension
+    "reportlab>=4.0",            # Phase 4: create PDFs
+    "pypdf[crypto]>=5.0,<8",     # Phase 4: modify and encrypt PDFs (AES needs 'crypto'); tested on 6.20 and 7.0
+    "pdfplumber>=0.11",          # Phase 4: read tables back out of PDFs
+    "fastapi>=0.115",            # Phase 3: HTTP API
+    "uvicorn>=0.30",             # Phase 3: ASGI server for FastAPI
+    "flask>=3.1",                # Phase 3: the same API with Flask
+    "waitress>=3.0",             # Phase 3: a server for Flask
+    "httpx>=0.27",               # Phase 3: HTTP client
+    "PySide6>=6.10",             # Phase 5 (6.10+ for beginFilterChange/endFilterChange)
+    "pyqtgraph>=0.13",           # Phase 5: live plots
+    "numpy>=2",                  # Phase 1: arrays and FFT
+    "scipy>=1.14",               # Phase 1: scipy.signal filters
+    "construct>=2.10",           # Phase 1: the protocol_bench comparison
+    "cryptography>=46",          # Phase 3: X.509 for a private CA; reserve material: Ed25519 signing
+    "paho-mqtt>=2.1",            # Phase 3: MQTT client (2.x callback API)
+    "requests>=2.32",            # Phase 3: the requests library in the TLS demo
+    "cffi>=1.17",                # Phase 2: fw_pytest loads the firmware library in ABI mode
+]
+
+[dependency-groups]
+dev = ["pytest>=8", "pytest-timeout>=2.4", "pytest-qt>=4.4", "hypothesis>=6.100", "ruff>=0.6", "mypy>=1.11", "types-reportlab", "scipy-stubs"]
+
+[tool.uv]
+package = false                  # scripts only; nothing to build or install from here
+
+[tool.uv.sources]
+frametool = { path = "../frametool-py", editable = true }
+
+[tool.ruff]
+line-length = 100
+
+[[tool.mypy.overrides]]
+module = ["pyqtgraph", "pyqtgraph.*"]   # pyqtgraph ships no type information
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["gui", "extras", "flashtool"]
+timeout = 30            # pytest-timeout: a test that hangs fails after 30 s instead of for ever
